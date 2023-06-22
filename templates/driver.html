@@ -1,0 +1,152 @@
+[[extend 'layout.html']]
+
+<style>
+  [v-cloak] {
+       display: none;
+  }
+
+  /* set size of map */
+  #map {
+    height: 1000px;
+    width: 100%;
+  }
+
+</style>
+
+<div class="section" id="vue-target" v-cloak>
+    <!-- list view -->
+    <div v-if="view == 0">
+      <p class="is-size-2" style="display: inline-block">Available Drivers</p>
+      <a class="button is-primary is-pulled-right" @click="viewChange(1)" style="font-size: 25px; background-color: rgb(242, 152, 19); height: 50px; padding-right: 20px; padding-left: 20px;">MAP</a>
+      <a class="button is-outlined is-pulled-right" @click="viewChange(0)" style="font-size: 25px; background-color: rgb(242, 152, 19); height: 50px; padding-right: 20px; padding-left: 20px;">LIST</a>
+        <body>
+          <div class="field has-addons">
+            <div class="control">
+              <div class="select">
+                <select id="dateSelect">
+                  <option value="0">Select Date</option>
+                  <option value="1">Sunday</option>
+                  <option value="2">Monday</option>
+                  <option value="3">Tuesday</option>
+                  <option value="4">Wednesday</option>
+                  <option value="5">Thursday</option>
+                  <option value="6">Friday</option>
+                  <option value="7">Saturday</option>
+                </select>
+              </div>
+            </div>
+            <div class="control">
+              <button id ="dateSelectButton" class="button is-primary">Search</button> 
+            </div>
+          </div>
+        </body>
+  <!--
+        <div class="field has-addons">
+          <div class="control is-expanded">
+            <input class="input" type="text" placeholder="Search users" v-model="query" @keyup="search">
+          </div>
+          <div class="control">
+            <button class="button" @click="erase_search">
+              <span class="icon is-small">
+                <i class="fa fa-times-circle"></i>
+              </span>
+            </button>
+          </div>
+        </div>
+        -->
+        <body>
+          [[for i in results:]]
+          <div class="box">
+            <article class="media">
+              <div class="media-left">
+                <figure class="image is-64x64">
+                  <img src="[[=i['profilePic']]]" alt="Profile Picture"> 
+                </figure>
+              </div>
+              <div class="media-content">
+                <div class="content">
+                  <p>
+                    <strong>Full Name</strong>: [[=i["firstName"] + " " + i["lastName"]]]
+                  </p>
+                  <p>
+                    <strong>Location</strong>: [[ =i["location"]]]
+                  </p>
+                  <p>
+                    <strong>Car Model</strong>: [[=i["carModel"]]]
+                  </p>
+                  <p>
+                    <strong>Car Make</strong>: [[=i["carMake"]]]
+                  </p>
+                  <p>
+                    <strong>Number of Seats</strong>: [[=i["numSeats"]]]
+                  </p>
+                  <p>
+                    <strong>Schedule</strong>: 
+                  </p>
+                  <table class="table is-striped is-fullwidth">
+                    <tr>
+                       <th>Monday</th>
+                       <th>Tuesday</th>
+                       <th>Wednesday</th>
+                       <th>Thursday</th>
+                       <th>Friday</th>
+                       <th>Saturday</th>
+                       <th>Sunday</th>
+                       <th>                                             
+                      </th>
+                    </tr>
+                    <td> 
+                      [[=i["monday"]]]
+                    </td>  
+                    <td>
+                      [[=i["tuesday"]]]
+                    </td> 
+                    <td>
+                      [[=i["wednesday"]]]
+                    </td> 
+                    <td>
+                      [[=i["thursday"]]]
+                    </td> 
+                    <td>
+                      [[=i["friday"]]]
+                    </td> 
+                    <td>
+                      [[=i["saturday"]]]
+                    </td> 
+                    <td>
+                      [[=i["sunday"]]]
+                    </td>       
+                  </table>   
+                </div>
+                <div class="control">
+                  <a class="button is-primary" href="[[=URL('displayProfile', i['id'])]]">Full Bio</a>
+                  <a class="button is-primary" @focus="getUser([[=i['id']]])" href="[[=URL('message', i['id'], signer=url_signer)]]">Message</a>
+              </div>
+            </article>
+          </div>
+          [[pass]]
+        </body>
+    </div>
+    <!-- list view end -->
+  
+    <!-- map view -->
+    <div v-else>
+      <p class="is-size-2" style="display: inline-block">Available Drivers</p>
+      <a class="button is-outlined is-pulled-right" @click="viewChange(1)" style="font-size: 25px; background-color: rgb(242, 152, 19); height: 50px; padding-right: 20px; padding-left: 20px;">MAP</a>
+      <a class="button is-primary is-pulled-right" @click="viewChange(0)" style="font-size: 25px; background-color: rgb(242, 152, 19); height: 50px; padding-right: 20px; padding-left: 20px;">LIST</a>
+      <!-- display google map -->
+      <div id="map"></div>
+    </div>
+
+</div>
+
+[[block page_scripts]]
+<!-- Loads the index-specific js for Vue -->
+<script>
+  let driverURL = "[[=XML(driverURL)]]";
+  let getUserURL ="[[=XML(getUserURL)]]";
+  let mapURL = "[[=XML(mapURL)]]";
+</script>
+<script src="js/index.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=APIKeyHere&callback=initMap&libraries=&v=weekly" async></script>
+[[end]]

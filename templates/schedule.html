@@ -1,0 +1,35 @@
+[[extend "layout.html"]]
+
+<section class="section">
+    <div class="container">
+      <div class="title">Availability</div>
+      <table class="table is-striped is-fullwidth">
+        <tr>
+           <th>Monday</th>
+           <th>Tuesday</th>
+           <th>Wednesday</th>
+           <th>Thursday</th>
+           <th>Friday</th>
+           <th>Saturday</th>
+           <th>Sunday</th>
+           <th></th>
+        </tr>
+        [[for row in rows:]]
+        <tr>
+           <td>[[=row["monday"]]]</td>
+           <td>[[=row["tuesday"]]]</td>
+           <td>[[=row["wednesday"]]]</td>
+           <td>[[=row["thursday"]]]</td>
+           <td>[[=row["friday"]]]</td>
+           <td>[[=row["saturday"]]]</td>
+           <td>[[=row["sunday"]]]</td>
+        </tr>
+        [[pass]]
+     </table>     
+     
+     <a class="button is-primary" href="[[=URL('profile')]]">
+      <span>Back</span>
+    </a> 
+    </div>
+  
+  </section>

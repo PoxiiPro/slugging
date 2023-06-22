@@ -1,0 +1,130 @@
+[[extend "layout.html"]]
+
+<!-- Authored by S. Fogel -->
+<!-- User Profile Display Page -->
+<style>
+.avatar {
+    vertical-align: middle;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-left: 20px;
+    margin-top: 40px;
+    padding: 20px; 
+}
+</style>
+
+
+<title>Edit Profile</title>
+
+<div class="section">
+    <div class="container is-mobile">
+    <div class="columns">
+      <div class="column is-one-quarter">
+        <img src="[[=URL('static', 'profileTemplate.jpg')]]", class="avatar">
+        <div v-if="!profilePic">
+          <p class="control">
+            <div class="file is-info">
+              <label class="file-label">
+                <input class="file-input" type="file"
+                       accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*"
+                       @change="upload_file($event, r._idx)">
+                <span class="file-cta">
+                  <span class="file-label">
+                    Upload Picture
+                    <span><i class="fa fa-upload"></i></span>
+                  </span>
+                </span>
+              </label>
+            </div>
+          </p>
+        </div>
+
+        <img v-if="profilePic" width="250" :src="profilePic" />
+      </div>
+      <div class="column">
+          <h1 class="title">Edit [[=account.firstName]]'s Profile</h1>
+          
+           <div class="block">
+              [[=form]]
+          </div>
+          
+ 
+
+       <div class="block">
+            <div class="title">Edit Availability</div>
+        <table class="table is-striped is-fullwidth">
+          <tr>
+             <th>Monday</th>
+             <th>Tuesday</th>
+             <th>Wednesday</th>
+             <th>Thursday</th>
+             <th>Friday</th>
+             <th>Saturday</th>
+             <th>Sunday</th>
+             <th></th>
+          </tr>
+          [[for row in rows:]]
+          <tr>
+             <td>[[=row["monday"]]]</td>
+             <td>[[=row["tuesday"]]]</td>
+             <td>[[=row["wednesday"]]]</td>
+             <td>[[=row["thursday"]]]</td>
+             <td>[[=row["friday"]]]</td>
+             <td>[[=row["saturday"]]]</td>
+             <td>[[=row["sunday"]]]</td>
+             <td>
+                <a class="button is-warning" href="[[=URL('editSchedule', row.id, signer=url_signer)]]">
+                  <span class = "icon"><i class = "fa fa-fw fa-edit"></i></span>
+                  <span></span>
+                </a>
+             </td>
+          </tr>
+          [[pass]]
+       </table>     
+       <a class="button is-warning" href="[[=URL('addSchedule')]]">
+        <span class = "icon"><i class = "fa fa-plus"></i></span>
+        <span>Add Availability</span>
+      </a> 
+       </div>
+
+       <div class="field">
+      <div class="control">
+       
+         <a class="button is-danger" href="[[=URL('index')]]">
+        <span class = "icon"><i class = "fa fa-ban"></i></span>
+        <span>Exit Edit</span>
+      </a> 
+    </div>
+   
+ </div>   
+  
+        
+      </div> <!--end of column-->
+      
+
+      
+    </div> <!--end of columns-->
+    
+ 
+</div> <!--end of containers-->
+
+
+
+</div> <!--end of section-->
+
+[[block page_scripts]]
+<script>
+  let upload_profilePic_url = "[[=XML(upload_profilePic_url)]]";
+</script>
+
+<script src>"js/index.js"</script>
+[[end]]
+
+[[block page_scripts]]
+<script>
+  let upload_profilePic_url = "[[=XML(upload_profilePic_url)]]";
+</script>
+
+<script src>"js/index.js"</script>
+[[end]]

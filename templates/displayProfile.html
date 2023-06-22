@@ -1,0 +1,315 @@
+[[extend "layout.html"]]
+
+<!-- Authored by S. Fogel -->
+<!-- User Profile Display Page -->
+<style>
+.avatar {
+    vertical-align: middle;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    margin-left: 80px;
+    margin-top: 40px;
+    padding: 20px; 
+}
+
+
+
+
+</style>
+
+
+<title>Display Profile</title>
+<!--Needs to be different for drivers and riders-->
+
+<div class="columns" id="vue-target">
+
+    [[for p in profile:]]
+    <div class="column is-one-quarter">
+        <img src="[[=p['profilePic']]]", class="avatar">
+    </div>
+    
+    <div class="column is-one-fifth">
+        [[if p["category"] == "rider":]]
+        <table class="table">
+            <tr><td>Name</td></tr>
+            <tr><td>Schedule</td></tr>
+        </table>
+
+        [[else:]] <!--p is a driver-->
+        <table class="table">
+            <tr><td>Name</td></tr>       
+            <tr><td>Car Make</td></tr>
+            <tr><td>Car Model</td></tr> 
+            <tr><td>Lisence Plate</td></tr> 
+            <tr><td>Number of Seats</td></tr>
+            <tr><td>Schedule</td></tr>
+            <tr>
+                <!--insert form here-->
+            </tr>      
+        </table>
+        [[pass]]
+    </div>
+    [[pass]]
+
+    [[for p in profile:]]
+    <div class="column is-half">
+    <!--input form that will help edit the information in the user profile.-->
+        [[if p["category"] == "rider" or p["category"] == "Rider":]]
+            <table class="table">
+                <tr><td>[[=p["firstName"] + " " + p["lastName"]]]</td></tr>
+                <tr><td>
+                    <table class="table is-striped ">
+                        <tr>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                        <th>Sunday</th>
+                        <th></th>
+                        </tr>
+                        
+                        <tr>
+                            [[if p["monday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["monday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["tuesday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["tuesday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["wednesday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["wednesday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["wednesday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["wednesday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["thursday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["thursday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["friday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["friday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["saturday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["saturday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["sunday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["sunday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        </tr>
+
+                    </table>
+
+                </td></tr>
+
+                
+            </table>
+
+        [[else:]] <!--p is a driver-->
+            <table class="table">
+                <tr><td>[[=p["firstName"] + " " + p["lastName"]]]</td></tr>       
+                <tr><td>[[=p["carMake"]]]</td></tr>
+                <tr><td>[[=p["carModel"]]]</td></tr> 
+                <tr><td>[[=p["license"]]]</td></tr> 
+                <tr><td>[[=p["numSeats"]]]</td></tr>
+                <tr><td>
+                    <table class="table is-striped ">
+                        <tr>
+                        <th>Monday</th>
+                        <th>Tuesday</th>
+                        <th>Wednesday</th>
+                        <th>Thursday</th>
+                        <th>Friday</th>
+                        <th>Saturday</th>
+                        <th>Sunday</th>
+                        <th></th>
+                        </tr>
+                        
+                        <tr>
+                            [[if p["monday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["monday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["tuesday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["tuesday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["wednesday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["wednesday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["wednesday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["wednesday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["thursday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["thursday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["friday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["friday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["saturday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["saturday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        [[if p["sunday"] != "None":]]
+                        <td>
+                            <a class="button is-success is-small">
+                                <span>[[=p["sunday"]]]</span>
+                            </a>
+                        </td>
+                        [[else:]]
+                        <td></td>
+                        [[pass]]
+
+                        </tr>
+
+                    </table>
+
+                </td></tr>    
+            </table>
+        [[pass]]
+        
+            <tr>
+            [[if p["category"] == "rider":]]
+             <!-- This button should eventually go back to whichever page the user was previously at (rider or driver)-->
+                <td><a class="button is-primary" href="[[=URL('rider')]]">
+                     <span class="icon"><i class="fa fa-backward"></i></span>
+                    <span>Back</span>
+                    </a>
+                    </td>
+            [[else:]]
+                <td><a class="button is-primary" href="[[=URL('driver')]]">
+                  <span class="icon"><i class="fa fa-backward"></i></span>
+                    <span>Back</span>
+                </a> </td>
+            [[pass]]
+            
+            <!-- <td><a class="button is-warning" href="[[=URL('message')]]">
+                  <span class="icon"> <i class="fa fa-envelope" > </i></span>
+                    <span>Message</span>
+                </a> </td>
+            
+            </tr> -->
+
+            <a class="button is-primary" @focus="getUser([[=p['id']]])" href="[[=URL('message', p['id'], signer=url_signer)]]">Message</a>
+         
+    </div>
+    [[pass]]  
+    
+</div>
+
+[[block page_scripts]]
+<!-- Loads the index-specific js for Vue -->
+<script>
+  let getUserURL ="[[=XML(getUserURL)]]";
+</script>
+<script src="js/index.js"></script>
+[[end]]
+
+    
+
+
+
+
+

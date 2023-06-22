@@ -1,0 +1,165 @@
+[[extend "layout.html"]]
+
+<style>
+#comments .block{
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: flex-end;
+}
+
+.message-body.is-pulled-right {
+  align-self: flex-end;
+  background-color: blue;
+  color: white;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+.right {
+  background-color: lightblue;
+  color: black;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
+
+  .username{
+      font-weight:bold;
+      margin-right: 5px;
+  }
+}
+
+.left {
+  align-self: flex-start;
+  background-color: lightgray;
+  color: black;
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: fit-content;
+}
+
+/* css styling for a generic looking i info button */
+.info-button {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        font-size: 16px;
+        line-height: 24px;
+        text-decoration: none;
+}
+
+/* css settings for profile pic */
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    padding: 20px; 
+}
+
+/* line divider  */
+.divider {
+  border: 0;
+  height: 1px;
+  background: #333;
+  background-image: linear-gradient(to right, #ccc, #333, #ccc);
+  margin-bottom: 50px;
+  margin-top: 10px;
+}
+
+</style>
+
+<!-- <style>
+  [v-cloak] {
+    display: none;
+  }
+</style> -->
+
+
+<div>
+  <!-- display the name of the person you are dming, also a back button and more info button -->
+  [[for p in profile:]]
+  <div>
+    <!-- back button -->
+    <button class="button is-size-6" onclick="window.history.back()">
+      <span class="icon">
+          <i class="fas fa-arrow-left"></i>
+      </span>
+    </button>
+
+    <!-- info button -->
+    <a class="info-button is-pulled-right is-size-4 mt-2" href="[[=URL('displayProfile', p['id'])]]">i</a>
+      
+    <!-- profile pic -->
+      <div class="center">
+        <!-- [[=p["profilePic"]]] -->
+        <img src="[[=URL('static', 'profileTemplate.jpg')]]", class="avatar">
+      </div>
+
+    <!-- name -->
+    <h1 class="title is-3 has-text-centered">[[=p["firstName"] + " " + p["lastName"]]]</h1>
+
+  </div>
+  [[pass]]
+  
+  <!-- divider line -->
+  <div class="divider"></div>
+</div>
+
+<div class="section" id="vue-target">
+
+  <!-- dm section -->
+  <div id="comments" class="block">
+    <!-- Here will go the comments. -->
+    <div v-for="c in comment_list" class="block">
+
+      <!-- if message is from other user, display left -->
+      <p class="control" v-if="c.user_id == otherUserID">
+        <div class="left">
+          <span class="username">{{c.text}}</span>
+        </div>
+      </p>
+
+      <!-- else, message is from logged in user, display right -->
+      <p class="control" v-else>
+        <div class="right">
+          <span class="username">{{c.text}}</span>
+        </div>
+      </p>
+
+    </div>
+  </div>
+  [[for p in profile:]]
+  <div class="block" style= "position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);">
+    <div class="field is-grouped">
+      <p class="control is-expanded">
+        <input class="input" type="text" v-model="new_comment" style="width: 90vw;"/>
+      </p>
+    </div>
+    <button class="button is-primary is-pulled-right" @click="add_comment">Send Message</button>
+  </div>
+</div>
+[[pass]]
+
+[[block page_scripts]]
+<script>
+  let load_messages_url = "[[=XML(load_messages_url)]]";
+  let add_messages_url = "[[=XML(add_messages_url)]]";
+  let getUserURL ="[[=XML(getUserURL)]]";
+</script>
+<script src="js/message.js"></script>
+[[end]]

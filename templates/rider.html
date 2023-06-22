@@ -1,0 +1,131 @@
+[[extend 'layout.html']]
+
+<style>
+  [v-cloak] {
+       display: none;
+  }
+
+  /* set size of map */
+  #map {
+    height: 1000px;
+    width: 100%;
+  }
+</style>
+
+<div class="section" id="vue-target" v-cloak>
+  <div v-if="view == 0">
+    <p class="is-size-2" style="display: inline-block">Available Riders</p>
+    <a class="button is-primary is-pulled-right" @click="viewChange(2)" style="font-size: 25px; background-color: rgb(242, 152, 19); height: 50px; padding-right: 20px; padding-left: 20px;">MAP</a>
+    <a class="button is-outlined is-pulled-right" @click="viewChange(0)" style="font-size: 25px; background-color: rgb(242, 152, 19); height: 50px; padding-right: 20px; padding-left: 20px; margin-left: 900px;">LIST</a>
+    <body>
+        <div class="field has-addons">
+          <div class="control">
+            <div class="select">
+              <select>
+                <option value="date">Select Date</option>
+                <option value="date">Sunday</option>
+                <option value="date">Monday</option>
+                <option value="date">Tuesday</option>
+                <option value="date">Wednesday</option>
+                <option value="date">Thursday</option>
+                <option value="date">Friday</option>
+                <option value="date">Saturday</option>
+              </select>
+            </div>
+          </div>
+          <div class="control">
+            <button class="button is-primary">Search</button>
+          </div>
+        </div>
+      </body>
+
+
+      <body>
+        [[for i in results:]]
+        <div class="box">
+          <article class="media">
+            <div class="media-left">
+              <figure class="image is-64x64">
+                <img src="[[=i['profilePic']]]" alt="Profile Picture"> 
+              </figure>
+            </div>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                  <strong>Full Name</strong>: [[=i["firstName"] + " " + i["lastName"]]]
+                </p>
+                <p>
+                  <strong>Location</strong>: [[=i["location"]]]
+                </p>
+                <p>
+                  <strong>Schedule</strong>: 
+
+                </p>
+                <table class="table is-striped is-fullwidth">
+                  <tr>
+                     <th>Monday</th>
+                     <th>Tuesday</th>
+                     <th>Wednesday</th>
+                     <th>Thursday</th>
+                     <th>Friday</th>
+                     <th>Saturday</th>
+                     <th>Sunday</th>
+                     <th>                                             
+                    </th>
+                  </tr>
+                  <td> 
+                    [[=i["monday"]]]
+                  </td>  
+                  <td>
+                    [[=i["tuesday"]]]
+                  </td> 
+                  <td>
+                    [[=i["wednesday"]]]
+                  </td> 
+                  <td>
+                    [[=i["thursday"]]]
+                  </td> 
+                  <td>
+                    [[=i["friday"]]]
+                  </td> 
+                  <td>
+                    [[=i["saturday"]]]
+                  </td> 
+                  <td>
+                    [[=i["sunday"]]]
+                  </td>       
+                </table>   
+              </div>
+              <div class="control">
+                <a class="button is-primary" href="[[=URL('displayProfile', i['id'])]]">Full Bio</a>
+                <a class="button is-primary" @focus="getUser([[=i['id']]])" href="[[=URL('message', i['id'], signer=url_signer)]]">Message</a>
+              </div>
+            </div>
+          </article>
+        </div>
+        [[pass]]
+      </body>
+    </div>
+    <!-- list view end -->
+
+    <!-- map view -->
+    <div v-else>
+      <p class="is-size-2" style="display: inline-block">Available Riders</p>
+      <a class="button is-outlined is-pulled-right" @click="viewChange(2)" style="font-size: 25px; background-color: rgb(242, 152, 19); height: 50px; padding-right: 20px; padding-left: 20px;">MAP</a>
+      <a class="button is-primary is-pulled-right" @click="viewChange(0)" style="font-size: 25px; background-color: rgb(242, 152, 19); height: 50px; padding-right: 20px; padding-left: 20px; margin-left: 900px;">LIST</a>
+      <!-- display google map -->
+      <div id="map"></div>
+    </div>
+                  
+</div>
+
+[[block page_scripts]]
+<!-- Loads the index-specific js for Vue -->
+<script>
+  let riderURL = "[[=XML(riderURL)]]";
+  let getUserURL ="[[=XML(getUserURL)]]";
+  let mapURL = "[[=XML(mapURL)]]";
+</script>
+<script src="js/index.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=APIKeyHere&callback=initMap&libraries=&v=weekly" async></script>
+[[end]]

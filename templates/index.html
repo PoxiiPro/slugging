@@ -1,0 +1,58 @@
+[[extend 'layout.html']]
+
+<style>
+body {
+  background-image: url('[[=URL('static', 'bg_image.jpg')]]');
+  background-size: cover;
+  background-position: center;
+}
+
+[v-cloak] {
+     display: none;
+}
+</style>
+
+<div class="section" id="vue-target" v-cloak>
+  <!-- Put here your Vue.js template -->
+  
+  <!-- set the tab title -->
+  <title>Slugging Carpool</title>
+
+  <!-- create a container class for formatting -->
+  <div class="container is-mobile">
+
+  <div class="columns">
+
+    <div class="column is-12">
+      <!-- <img src="[[=URL('static', 'bg_image.jpg')]]" style="display: block; margin: 0 auto; width: 100%; z-index: 0; margin-top: -200px;"> -->
+      
+      <div class="column is-full mt-6">
+        <div style="display: flex; justify-content: center;">
+          <p style="color: rgb(0, 60, 108); font-size: 150px;">LOOKING FOR:</p>
+        </div>
+      </div>
+    
+      <div class="column is-full">
+        <a class="button is-primary" href="[[=URL('driver')]]" style="display: inline-block; color: white; font-size: 70px; background-color: rgb(242, 152, 19); height: 100px; line-height: 30px; padding-right: 40px; padding-left: 40px; padding-top: 35px; margin-left: 200px; margin-right: 0;">DRIVER</a>
+        <!-- </a>&nbsp; -->
+        <a class="button is-primary" href="[[=URL('rider')]]" style="display: inline-block; color: white; font-size: 70px; background-color: rgb(242, 152, 19); height: 100px; line-height: 20px; padding-right: 60px; padding-left: 70px; padding-top: 40px; margin-left: 290px; margin-right: 0; margin-bottom: 300px;" >RIDER</a>
+      </div>
+      
+      <!-- full width bg image column close -->
+    </div>
+      
+    <!-- full width bg image column close -->
+    </div>
+
+  <!-- Container close -->
+  </div>
+</div>
+
+
+[[block page_scripts]]
+<!-- Loads the index-specific js for Vue -->
+<script>
+  let my_callback_url = "[[=XML(my_callback_url)]]";
+</script>
+<script src="js/index.js"></script>
+[[end]]

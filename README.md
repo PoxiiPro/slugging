@@ -1,4 +1,4 @@
-- This is a py4web app utilzing Vue.js for connection between front end and back end.
+- This is a py4web app utilzing Vue.js for connection between front end and back end  
 - Front end is developed in HTML, CSS, and Bulma
 - Back end is developed in python
 - Vue js allows for the front end to interact with the back end

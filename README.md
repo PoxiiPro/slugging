@@ -1,6 +1,5 @@
-# Vue Start
-
-This app is the starting point for all of our 
-Vue applications.  To write a new Vue app 
-in py4web, clone this application in your apps 
-folder, and work on it. 
+- This is a py4web app utilzing Vue.js for connection between front end and back end.
+- Front end is developed in HTML, CSS, and Bulma
+- Back end is developed in python
+- Vue js allows for the front end to interact with the back end
+- Google Maps java script api integrated for a map display of user's location
